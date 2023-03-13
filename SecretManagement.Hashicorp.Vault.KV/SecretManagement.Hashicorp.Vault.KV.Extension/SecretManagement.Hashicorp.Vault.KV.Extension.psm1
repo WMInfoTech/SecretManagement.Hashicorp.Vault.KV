@@ -2,8 +2,8 @@
 using namespace System.Collections.ObjectModel
 using namespace System.Collections.Generic
 # enum and Variables setup for use
-$script:HashicorpVaultConfigValues = @('VaultServer', 'VaultAuthType', 'VaultToken', 'VaultAPIVersion', 'VaultSkipVerify', 'KVVersion', 'Login', 'OutputType', 'Verbose')
-$script:AllVariables = @('VaultServer', 'VaultAuthType', 'VaultToken', 'VaultAPIVersion', 'VaultSkipVerify', 'KVVersion', 'Login', 'OutputType', 'TokenRenewable', 'TokenLifespan', 'TokenType', 'TokenExpireTime', 'Verbose')
+$script:HashicorpVaultConfigValues = @('VaultServer', 'VaultAuthType', 'VaultToken', 'VaultLogin', 'VaultAPIVersion', 'VaultSkipVerify', 'KVVersion', 'OutputType', 'Verbose')
+$script:AllVariables = @('VaultServer', 'VaultAuthType', 'VaultToken', 'VaultLogin', 'VaultAPIVersion', 'VaultSkipVerify', 'KVVersion', 'OutputType', 'TokenRenewable', 'TokenLifespan', 'TokenType', 'TokenExpireTime', 'Verbose')
 
 enum HashicorpVaultAuthTypes {
     None
@@ -196,10 +196,10 @@ function Invoke-VaultToken {
     $AuthType = $script:VaultAuthType
 
     if ($Password -and $AuthType -ne 'Token' -and -not $RenewToken) {
-        if (-not $AdditionalParameters['Login']) {
+        if (-not $AdditionalParameters['VaultLogin']) {
             $Login = Read-Host -Prompt "What is the $(if($AuthType -eq 'Approle'){'Role-Id'} else {'Username'})?"
         } else {
-            $Login = $AdditionalParameters['Login']
+            $Login = $AdditionalParameters['VaultLogin']
         }
         $Credential = [System.Management.Automation.PSCredential]::new($Login, $Password)
     }
