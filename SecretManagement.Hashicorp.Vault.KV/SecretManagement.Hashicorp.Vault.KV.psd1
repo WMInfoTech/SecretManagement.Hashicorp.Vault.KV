@@ -1,5 +1,5 @@
 @{
-    ModuleVersion        = '2.0.1'
+    ModuleVersion        = '2.1.0'
     CompatiblePSEditions = @('Core')
     GUID                 = '5dbf943d-d9c0-4db5-88a2-1995043a6305'
     Author               = 'Josh Corrick'
